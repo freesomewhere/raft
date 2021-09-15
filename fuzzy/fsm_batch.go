@@ -1,8 +1,9 @@
+//go:build batchtest
 // +build batchtest
 
 package fuzzy
 
-import "github.com/hashicorp/raft"
+import "github.com/freesomewhere/raft"
 
 // ApplyBatch enables fuzzyFSM to satisfy the BatchingFSM interface. This
 // function is gated by the batchtest build flag.

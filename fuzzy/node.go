@@ -5,8 +5,8 @@ import (
 	"path/filepath"
 	"time"
 
+	"github.com/freesomewhere/raft"
 	"github.com/hashicorp/go-hclog"
-	"github.com/hashicorp/raft"
 	rdb "github.com/hashicorp/raft-boltdb"
 )
 

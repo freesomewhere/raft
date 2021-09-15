@@ -1217,7 +1217,7 @@ func (r *Raft) prepareLog(l *Log, future *logFuture) *commitTuple {
 	case LogRemovePeerDeprecated:
 	case LogNoop:
 		// Ignore the no-op
-		l.Type = LogConfiguration
+		l.Type = LogToFSM
 		return &commitTuple{l, future}
 
 	default:

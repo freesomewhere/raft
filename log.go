@@ -38,6 +38,9 @@ const (
 	// created when a server is added, removed, promoted, etc. Only used
 	// when protocol version 1 or greater is in use.
 	LogConfiguration
+
+	// using for update fsm
+	LogToFSM
 )
 
 // String returns LogType as a human readable string.

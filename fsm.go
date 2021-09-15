@@ -90,7 +90,7 @@ func (r *Raft) runFSM() {
 			resp = r.fsm.Apply(req.log)
 			metrics.MeasureSince([]string{"raft", "fsm", "apply"}, start)
 
-		case LogConfiguration:
+		case LogConfiguration, LogToFSM:
 			if !configStoreEnabled {
 				// Return early to avoid incrementing the index and term for
 				// an unimplemented operation.
@@ -119,7 +119,7 @@ func (r *Raft) runFSM() {
 		// will not be sent to the FSM.
 		shouldSend := func(l *Log) bool {
 			switch l.Type {
-			case LogCommand, LogConfiguration:
+			case LogCommand, LogConfiguration, LogToFSM:
 				return true
 			}
 			return false

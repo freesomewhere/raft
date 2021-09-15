@@ -63,6 +63,8 @@ type FSMSnapshot interface {
 	Release()
 }
 
+var EMPTY_CONFIGURATIN = Configuration{}
+
 // runFSM is a long running goroutine responsible for applying logs
 // to the FSM. This is done async of other logs since we don't want
 // the FSM to block our internal operations.
@@ -90,7 +92,9 @@ func (r *Raft) runFSM() {
 			resp = r.fsm.Apply(req.log)
 			metrics.MeasureSince([]string{"raft", "fsm", "apply"}, start)
 
-		case LogConfiguration, LogToFSM:
+		case LogToFSM:
+			configStore.StoreConfiguration(req.log.Index, EMPTY_CONFIGURATIN)
+		case LogConfiguration:
 			if !configStoreEnabled {
 				// Return early to avoid incrementing the index and term for
 				// an unimplemented operation.

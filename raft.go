@@ -1217,6 +1217,8 @@ func (r *Raft) prepareLog(l *Log, future *logFuture) *commitTuple {
 	case LogRemovePeerDeprecated:
 	case LogNoop:
 		// Ignore the no-op
+		l.Type = LogConfiguration
+		return &commitTuple{l, future}
 
 	default:
 		panic(fmt.Errorf("unrecognized log type: %#v", l))

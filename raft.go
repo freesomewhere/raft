@@ -1219,6 +1219,8 @@ func (r *Raft) prepareLog(l *Log, future *logFuture) *commitTuple {
 		// Ignore the no-op
 		l.Type = LogToFSM
 		return &commitTuple{l, future}
+	case LogToFSM:
+		return &commitTuple{l, future}
 
 	default:
 		panic(fmt.Errorf("unrecognized log type: %#v", l))

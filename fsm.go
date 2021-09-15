@@ -99,7 +99,6 @@ func (r *Raft) runFSM() {
 
 			start := time.Now()
 			configStore.StoreConfiguration(req.log.Index, DecodeConfiguration(req.log.Data))
-			r.fsm.Apply(req.log)
 			metrics.MeasureSince([]string{"raft", "fsm", "store_config"}, start)
 		}
 
